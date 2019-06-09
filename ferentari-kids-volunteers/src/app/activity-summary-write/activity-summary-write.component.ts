@@ -36,8 +36,8 @@ export class ActivitySummaryWriteComponent implements OnInit {
   ngOnInit() {
     this.kids = this.kid.valueChanges.pipe(
       startWith(''),
-      debounceTime(250),
-      filter(v => typeof(v) === 'string'),
+      debounceTime(100),
+      filter(value => typeof(value) === 'string'),
       switchMap(kidSearch => this.kidsSearchQuery.execute(kidSearch)));
   }
   
@@ -52,7 +52,7 @@ export class ActivitySummaryWriteComponent implements OnInit {
   formatName(kid){
     if (typeof(kid) !== 'object') return '';
     return kid.name.last + ' ' + kid.name.first + 
-      (kid.name.nick?' ' + kid.name.nick: '');
+      (kid.name.nick?' (' + kid.name.nick + ')': '');
   }
   formatNameAndGrade(kid){
     if (typeof(kid) !== 'object') return '';

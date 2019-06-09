@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatAutocompleteModule, MatSnackBarModule} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import '../stringExtensions'
 
 @NgModule({
   declarations: [
