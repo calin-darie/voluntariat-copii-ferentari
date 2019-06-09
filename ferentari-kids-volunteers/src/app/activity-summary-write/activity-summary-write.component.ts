@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {switchMap, startWith, debounceTime, filter } from 'rxjs/operators';
 import { ActivitySummaryWriteCommand } from './activity-summary-write.command';
 import { MatSnackBar } from '@angular/material';
+import { AutoSaveService } from './auto-save.service';
 
 @Component({
   selector: 'app-activity-summary-write',
@@ -22,6 +23,7 @@ export class ActivitySummaryWriteComponent implements OnInit {
   constructor(
     private readonly kidsSearchQuery: KidsSearchQuery,
     private readonly activitySummaryWriteCommand: ActivitySummaryWriteCommand,
+    private readonly autoSaveService: AutoSaveService,
     private status: MatSnackBar
     ) { 
       this.form = new FormGroup({
@@ -39,11 +41,27 @@ export class ActivitySummaryWriteComponent implements OnInit {
       debounceTime(100),
       filter(value => typeof(value) === 'string'),
       switchMap(kidSearch => this.kidsSearchQuery.execute(kidSearch)));
+    
     this.form.valueChanges.subscribe(_ => {
       this.status.dismiss();
     });
+    
+    this.initAutoSave();
   }
   
+  private initAutoSave() {
+    const savedFormValues = this.autoSaveService.load(ActivitySummaryWriteComponent.name);
+    try {
+      this.form.setValue(savedFormValues);
+    }
+    catch (e) {
+      console.warn('Could not load autosaved form data. Might be first use.', e)
+    }
+    this.form.valueChanges.pipe(debounceTime(1000)).subscribe(value => {
+      this.autoSaveService.save(ActivitySummaryWriteComponent.name, value);
+    });
+  }
+
   private requireMatch(control: FormControl): ValidationErrors | null {
     const selection: any = control.value;
     if (typeof selection === 'string') {
