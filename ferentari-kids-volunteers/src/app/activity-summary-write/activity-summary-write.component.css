@@ -1,3 +1,8 @@
 button, mat-form-field {
     margin-top:16px;
 }
+
+.requiredLegend {
+    font-size:75%;
+    color:#f44336;
+}
