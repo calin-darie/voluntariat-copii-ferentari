@@ -39,6 +39,9 @@ export class ActivitySummaryWriteComponent implements OnInit {
       debounceTime(100),
       filter(value => typeof(value) === 'string'),
       switchMap(kidSearch => this.kidsSearchQuery.execute(kidSearch)));
+    this.form.valueChanges.subscribe(_ => {
+      this.status.dismiss();
+    });
   }
   
   private requireMatch(control: FormControl): ValidationErrors | null {
