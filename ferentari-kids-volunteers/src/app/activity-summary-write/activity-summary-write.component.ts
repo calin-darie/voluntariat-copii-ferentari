@@ -71,12 +71,12 @@ export class ActivitySummaryWriteComponent implements OnInit {
   }
 
   formatName(kid){
-    if (typeof(kid) !== 'object') return '';
+    if (kid === null || typeof(kid) !== 'object') return '';
     return kid.name.last + ' ' + kid.name.first + 
       (kid.name.nick?' (' + kid.name.nick + ')': '');
   }
   formatNameAndGrade(kid){
-    if (typeof(kid) !== 'object') return '';
+    if (kid === null || typeof(kid) !== 'object') return '';
     return this.formatName(kid) +
       (kid.grade? ', clasă: ' + kid.grade: ', nu e la școală');
   }
