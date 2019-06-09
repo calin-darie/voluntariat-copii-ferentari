@@ -1,0 +1,9 @@
+.app-wrapper{
+    text-align:center;
+}
+div.mat-app-background {
+    max-width: 900px;
+    display:inline-block;
+    text-align:left;
+    padding:2em;
+}

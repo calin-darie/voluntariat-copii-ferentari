@@ -1,0 +1,33 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+env_variables:
+  API_KEY: <API key for projects app engine>
+
+handlers:
+
+  - url: /
+    static_files: dist/ferentari-kids-volunteers/index.html
+    upload: dist/ferentari-kids-volunteers/index.html
+  - url: /(.*\.js)
+    mime_type: text/javascript
+    static_files: dist/ferentari-kids-volunteers/\1
+    upload: dist/ferentari-kids-volunteers/(.*\.js)
+  - url: /(.*\.css)
+    mime_type: text/css
+    static_files: dist/ferentari-kids-volunteers/\1
+    upload: dist/ferentari-kids-volunteers/(.*\.css)
+  - url: /(.*)
+    static_files: dist/ferentari-kids-volunteers/\1
+    upload: dist/ferentari-kids-volunteers/(.*)
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
