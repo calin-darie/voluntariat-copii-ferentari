@@ -20,6 +20,7 @@ export class ActivitySummaryWriteComponent implements OnInit {
   remarks = new FormControl('');
   kids: Observable<any>;
   form: FormGroup;
+  submitInProgress: boolean;
   constructor(
     private readonly kidsSearchQuery: KidsSearchQuery,
     private readonly activitySummaryWriteCommand: ActivitySummaryWriteCommand,
@@ -82,6 +83,8 @@ export class ActivitySummaryWriteComponent implements OnInit {
   }
 
   submit() {
+    this.submitInProgress = true;
+    this.status.open("Se trimit răspunsurile...");
     var request = {
       volunteer: {
         firstName: this.volunteerNameFirst.value,
@@ -107,8 +110,9 @@ export class ActivitySummaryWriteComponent implements OnInit {
             this.kid.reset();
             this.activitySummary.reset();
             this.remarks.reset();
-          }        
-          this.status.open(message, 'Am înțeles')
+          }
+          this.status.open(message, 'Am înțeles');
+          this.submitInProgress = false;
   }
 }
 

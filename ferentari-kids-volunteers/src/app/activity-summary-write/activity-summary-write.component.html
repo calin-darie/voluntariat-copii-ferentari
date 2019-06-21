@@ -40,7 +40,7 @@ Te rugăm să completezi acest formular pentru fiecare dintre copiii cu care ai 
     <mat-hint>De exemplu: la ce trebuie lucrat pe viitor, ce merge bine, ce ar putea fi îmbunătățit</mat-hint>
 </mat-form-field>
 <button mat-raised-button 
-  [disabled]="!form.valid" 
+  [disabled]="!form.valid || submitInProgress" 
   (click)="submit()">
   Trimite
 </button>
